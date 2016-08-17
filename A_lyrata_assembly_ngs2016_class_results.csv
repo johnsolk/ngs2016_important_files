@@ -1,0 +1,23 @@
+Arabidopsis lyrata assembly challenge,,,,,,
+,,,,,,
+Strategy (de novo or reference-based?),From STAR: Uniquely mapped reads % (if using reference based),# transcripts,average length,n50,Transrate assembly score,Transrate %(p) good mapping
+ref-based (Tuddow),59.78%,30386,594.01,785,0.3646,0.67366
+reference based (Hussien),57.30%,30424,592.24,780,0.3572,0.67
+reference-based - no gff map (Emilio),,30424,592.36,780,0.4229,0.86
+ref based (Kyle),59.5,30488,587.61185,770,0.36539,0.68881
+ref based (Brian),58.11,30553,596.60207,789,0.35968,0.67369
+reference-based (Girish),56.77,30762,583,762,0.3324,0.66
+reference-based (Seth),57.37,30550,596,789,0.3591,0.86
+reference-based (Jocie),59.83,36712,859.45,1248,0.1246,0.7
+reference-based,57.63,37470,836.21,1212,0.1106,0.46
+De novo (Tuddow),,42013,618.61498,847,0.4508,0.78876
+De novo (Katrina),,42592,621.89444,852,0.44126,0.78997
+De novo (Rick),,42596,621.96795,853,0.44144,0.78983
+de novo (Anna),,42598,621.97523,853,0.4411,0.79
+De novo (Andrea),,42608,622.05,853,0.44,0.789
+"De novo (Dan... yes, I'm surprised too)",,42662,620.77641,850,0.43354,0.79829
+De novo (Darcy),,42754,619.64572,846,0.43218,0.78834
+,,,,,,
+From the A. lyrata genome annotation,,"32,670",1084.1,1458,,
+reference based (Clara),,36808,859.09,1248,0.1201,0.47
+reference based (Gaby),57.65%,,,,,
