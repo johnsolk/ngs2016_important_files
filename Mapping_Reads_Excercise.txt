@@ -1,5 +1,6 @@
-sudo apt-get update
+# This represents code used in the mapping reads "adventure" excercise in the genome assembly portion of the course
 
+sudo apt-get update
 sudo apt-get -y upgrade
 
 sudo apt-get install build-essential
