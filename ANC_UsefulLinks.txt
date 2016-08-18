@@ -1,0 +1,10 @@
+Some of Mandy's Saved Links
+
+https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0089-y
+http://biorxiv.org/content/biorxiv/early/2015/12/30/035642.full.pdf
+http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3875132/
+https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf
+https://github.com/trinityrnaseq/trinityrnaseq/wiki/Genome-Guided-Trinity-Transcriptome-Assembly
+http://hibberdlab.com/transrate/index.html
+http://www.vicbioinformatics.com/degust/
+http://swirlstats.com/
