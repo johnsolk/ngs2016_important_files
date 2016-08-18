@@ -1,0 +1,29 @@
+ALLIE GRAHAM
+PROTOCOL FOR HIF GENE PROJECT - PE FILES ALREADY TRIMMED AND FILTERED - PER SPECIES (BOTH POPULATIONS)
+
+#install packages (need to for Mac or home directory on server? homebrew instructions)
+sudo apt-get install ruby git
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+export PATH="/home/ubuntu/.linuxbrew/bin:$PATH"
+export MANPATH="/home/ubuntu/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/ubuntu/.linuxbrew/share/info:$INFOPATH"
+install python ncbi-blast+
+brew tap homebrew/science
+brew install bwa
+brew install samtools
+brew install bcftools
+brew install vcftools
+
+#index reference sequences/genome
+bwa index index.fasta
+samtools faidx index.fasta
+
+#mapping the raw reads to the reference sequences/genome (all individual - use for loop? look at salmon)
+see loop file (called for_loop_HIF.sh)
+
+#merge and mpileup file with ALL individuals (high/low) into one file
+samtools mpileup -uf index.fasta aln_reads12.sorted.bam .... [all other 19 individual files] | bcftools call -vmO z -o aln_reads12.vcf
+
+#blast for the rad-sequences in vcf files (need to download bird gene models, or just duck/chicken) wait till tomorrow
+makeblastdb -in bird.prot.fasta -dbtype prot
+blastx -query combined_rad_seq.fasta -db bird.prot.fasta -out rad_seq_blast_results.txt

@@ -1,0 +1,26 @@
+sudo apt-get update
+
+sudo apt-get -y upgrade
+
+sudo apt-get install build-essential
+sudo apt-get install ruby git
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+export PATH="/home/ubuntu/.linuxbrew/bin:$PATH"
+export MANPATH="/home/ubuntu/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/ubuntu/.linuxbrew/share/info:$INFOPATH"
+brew tap homebrew/science
+
+brew install samtools
+brew install bwa
+
+bwa index Cavia.fa
+(Non-Mem??)
+bwa aln Cavia.fa SRR636898_1.fastq > S_1.sai
+bwa aln Cavia.fa SRR636898_2.fastq > S_2.sai
+bwa sampe Cavia.fa S_1.sai S_2.sai SRR636898_1.fastq SRR636898_2.fastq > aln.sam
+
+bwa mem Cavia.fa -t 16 SRR636898_1.fastq SRR636898_2.fastq\
+| samtools view -@10 -Sb - \
+| samtools sort -T sort -O bam -@10 -o sorted.bam -
+
+samtools flagstat sorted.bam
