@@ -27,6 +27,7 @@ To Do:
 - [ ] add documentation and argparse command-line arguments to merge_counts.py for merging salmon quant.sf TPM counts
 - [ ] explain purpose of repo
 - [ ] other items
+- [ ] you do you
 
 Cool links:
 - Alignment is hard, test yourself against a computer: http://phylo.cs.mcgill.ca/
