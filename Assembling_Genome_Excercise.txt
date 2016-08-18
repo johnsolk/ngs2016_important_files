@@ -1,0 +1,44 @@
+# This represents the code used for the genome assembly "adventure" excersise during the first week of the course
+
+sudo apt-get update
+sudo apt-get -y upgrade
+
+sudo apt-get install build-essential
+sudo apt-get install ruby git
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+export PATH="/home/ubuntu/.linuxbrew/bin:$PATH"
+export MANPATH="/home/ubuntu/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/ubuntu/.linuxbrew/share/info:$INFOPATH"
+
+sudo apt-get install abyss bwa samtools
+
+sudo ln -s /usr/lib/abyss/abyss-fac /usr/local/bin/
+
+brew tap homebrew/science
+
+brew install emboss
+brew install busco --without-blast --without-emboss
+
+curl -LO ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.3.0/ncbi-blast-2.3.0+-x64-linux.tar.gz
+tar -zxf ncbi-blast-2.3.0+-x64-linux.tar.gz
+PATH=$HOME/ncbi-blast-2.3.0+/bin:$PATH
+
+export AUGUSTUS_CONFIG_PATH=/home/ubuntu/.linuxbrew/Cellar/augustus/3.2.2_1/libexec/config/
+
+#Paired-end data
+
+curl -LO https://s3.amazonaws.com/macmanes_share/ERR1328557_1.fastq.gz
+curl -LO https://s3.amazonaws.com/macmanes_share/ERR1328557_2.fastq.gz
+
+#Mate-pair data
+
+curl -LO https://s3.amazonaws.com/macmanes_share/ERR1328558_1.fastq.gz
+curl -LO https://s3.amazonaws.com/macmanes_share/ERR1328558_2.fastq.gz
+
+abyss-pe np=32 k=60 name=test lib='pe1' mp='mp1' pe1='ERR1328557_1.fastq ERR1328557_2.fastq' mp1='ERR1328558_1.fastq ERR1328558_2.fastq'
+
+cd $HOME
+curl -LO http://busco.ezlab.org/files/fungi_buscos.tar.gz
+tar -zxf fungi_buscos.tar.gz
+
+busco -c 32 -f -o taco_busco_output -in taco-scaffolds.fa -l fungi -m genome

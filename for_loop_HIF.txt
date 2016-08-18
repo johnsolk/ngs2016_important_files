@@ -1,0 +1,23 @@
+#!/bin/bash
+
+for fn in ./*_1_filter.fastq
+do
+
+# get the path to the file
+dir=`dirname $fn`;
+
+# get just the file (without the path)
+base=`basename $fn`;
+
+# the read filename, without the *1_filter.fastq suffix
+rf=${base%_1_filter.fastq};
+
+# Do whatever we want with it
+echo ">>>>>>>>>>Running BWA-MEM<<<<<<<<<<<<<"
+bwa mem index.fasta ${dir}/${rf}_1_filter.fastq ${dir}/${rf}_2_filter.fastq > ${rf}.sam
+echo ">>>>>>>>>>Running SAMTOOLS<<<<<<<<<<<<<"
+samtools view -bS ${rf}.sam > ${rf}.bam
+echo ">>>>>>>>>>Running SAMTOOLS SORT<<<<<<<<<<<<<"
+samtools sort ${rf}.bam > ${rf}.sorted.bam
+
+done
