@@ -1,4 +1,4 @@
-# ngs2016_important_files_editing_lisa's_file
+# ngs2016_important_files_editing_lisa's_file_TAKE2
 
 Getting started with sharing files on Github tutorial: http://angus.readthedocs.io/en/2016/LC-github.html
 
