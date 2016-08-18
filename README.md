@@ -12,7 +12,7 @@ Jupyter notebook lesson: http://angus.readthedocs.io/en/2016/jupyter_notebook.ht
 
 Github lesson: http://angus.readthedocs.io/en/2016/LC-github.html
 
-Open science articles:
+Articles on open science and reproducibility:
 
 * McKiernan et al. 2016. How open science helps researchers. eLife. https://elifesciences.org/content/5/e16800
 * Teal and Shade. 2015. Computing Workflows for Biologists. http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002303
