@@ -12,3 +12,10 @@ http://angus.readthedocs.io/en/2016/jupyter_notebook.html
 Github lesson:
 
 http://angus.readthedocs.io/en/2016/LC-github.html
+
+To Do:
+- [X] add .ipynb files
+- [ ] add documentation and argparse command-line arguments to merge_counts.py for merging salmon quant.sf TPM counts
+- [ ] explain purpose of repo
+- [ ] clean up README.md
+- [ ] other items
