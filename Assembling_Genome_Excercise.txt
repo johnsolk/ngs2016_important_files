@@ -1,5 +1,6 @@
-sudo apt-get update
+# This represents the code used for the genome assembly "adventure" excersise during the first week of the course
 
+sudo apt-get update
 sudo apt-get -y upgrade
 
 sudo apt-get install build-essential
@@ -35,8 +36,6 @@ curl -LO https://s3.amazonaws.com/macmanes_share/ERR1328558_1.fastq.gz
 curl -LO https://s3.amazonaws.com/macmanes_share/ERR1328558_2.fastq.gz
 
 abyss-pe np=32 k=60 name=test lib='pe1' mp='mp1' pe1='ERR1328557_1.fastq ERR1328557_2.fastq' mp1='ERR1328558_1.fastq ERR1328558_2.fastq'
-
-*had to re-run called new name taco*
 
 cd $HOME
 curl -LO http://busco.ezlab.org/files/fungi_buscos.tar.gz
