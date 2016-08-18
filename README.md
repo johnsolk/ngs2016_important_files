@@ -32,3 +32,18 @@ Cool links:
 - Alignment is hard, test yourself against a computer: http://phylo.cs.mcgill.ca/
 - Python visualizations can be cool: http://scikit-learn.org/stable/auto_examples/index.html
 - More Python visualizations! https://stanford.edu/~mwaskom/software/seaborn/
+
+
+This is how to check the length of a sequence, but I can never remember it:
+
+```
+  a=TGCGGTTATCCATCTGCTTATGGAAGCCAAGCATTGGGGATTGAGAAAGAGTAGAAATGCCA
+  echo ${#a}
+
+```
+
+
+
+
+Aliases:
+
