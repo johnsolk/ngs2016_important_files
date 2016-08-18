@@ -5,17 +5,16 @@ insert quippy statement here
 
 Original file: https://github.com/BenLangmead/ads1-notebooks/blob/master/1.01_StringBasics.ipynb
 
-Jupyter notebook lesson:
+Jupyter notebook lesson: http://angus.readthedocs.io/en/2016/jupyter_notebook.html
 
-http://angus.readthedocs.io/en/2016/jupyter_notebook.html
-
-Github lesson:
-
-http://angus.readthedocs.io/en/2016/LC-github.html
+Github lesson: http://angus.readthedocs.io/en/2016/LC-github.html
 
 To Do:
 - [X] add .ipynb files
+- [ ] add cool links to README.md
 - [ ] add documentation and argparse command-line arguments to merge_counts.py for merging salmon quant.sf TPM counts
 - [ ] explain purpose of repo
-- [ ] clean up README.md
 - [ ] other items
+
+Cool links:
+- Alignment is hard, test yourself against a computer: http://phylo.cs.mcgill.ca/
