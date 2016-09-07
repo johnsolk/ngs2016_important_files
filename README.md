@@ -2,6 +2,8 @@
 
 ![](human.jpg)
 
+Test repo for ngs 2016 students to test making changes, pull requests, and submitting issues. 
+
 Getting started with sharing files on Github tutorial: http://angus.readthedocs.io/en/2016/LC-github.html
 
 You do you
