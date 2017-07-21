@@ -1,0 +1,177 @@
+RNASEQ WORKSHOP NOTES
+
+
+
+####  CREATE VIRTUAL ENVIRONMENTAL WITHIN AN INSTANCE #### 
+# benefits: allows you to intall programs within a root as admin
+# can keep it contained using same versions of programs
+# all within your home directory
+# don't need much space used if data is somewhere else
+# when you close and go back in after loggin out, need to run the SOURCE ACTIVATE command
+# .bashrc
+
+#### SETTING ENVIRONMENTAL VARIABLES (use $ to call variables) #### 
+
+export PROJECT=/mnt/work 	# shortcut to /mnt/work ; PROJECT is now a variable
+ls $PROJECT 				# check to see if the shortcut worked
+echo $PROJECT			  	# use $ so it is recognized as the variables
+cd $PROJECT					# cd into directory			
+cd ${PROJECT}				# use this format in scripts; # brackets help define where 
+							# the variable is so you can append to it	
+
+#### COMMAND LINE TRICKS #### 
+
+# use pipe (|) to feed output from one program into another 
+# example: list files and then count number of lines
+# good to incorporate these into pipeline as sanity check
+ls -1 ${PROJECT}/quality/*.qc.fq.gz | wc -l 	# Example
+
+history 		# show command line history
+
+# brackets help define where the variable is so you can append to it
+cd ${PROJECT} 		# or
+cd $PROJECT
+
+######### RStudio through web browser #########
+# echo My RStudio Web server is running at: http://$(hostname):8787/
+# once in RStudo, create a script using green plus icon (top left)
+# paste in commands and run (like a m-script)
+
+
+#  APPENDING DATA TO EXISTING FILE 
+gunzip - c filename >>left.fq    # append orphan reads to left.fq existing file
+
+# unzipping files on the fly within a command
+salmon quant -i nema -p 2 -l IU -1 <(gunzip -c $R1) -2 <(gunzip -c $R2) -o ${sample}quant
+
+# Making directory in scripts using -p
+cd -p assembly 		# will create assembly directory if there is not one
+ls -lh  			# human readable file sizes!!!
+
+apt-get 			# automatic installer for linux
+echo $PATH			# tells you what is in your path
+which program		# tells you where a program is you just installed
+ln -s filenames		# create symbolic link
+salmon -h			# get help for a program (e.g. salmon)
+grep -c '>' trinity-nematostella-raw.fa	# number sequences in a fasta file
+source filename		# run a script no need for #!
+screen				# start before you are going to run a long job and then detach
+control+a and then press d			# detach from screen
+screen -X -S 489 quit				# to kill a screen
+screen -r			# shows list of screen jobs
+screen -r 30720		# to get to that screen again
+df -h				# how much memory being used on server
+du -sh				# how much space being used in current directory
+
+####  DIGINORM NOTES #### 
+# takes interleaved files
+# must un-interleave to input into Trinity
+# diginorm tells you how many reads it got rid of
+
+####  ASSEMBLY QUALITY EVALUATION: TransRate and BUSCO #### 
+# Conesa et al 2016; MacManes 2015
+# guidelines for reproducibility!
+# BUSCO uses "benchmark" genes - highly conserved genes that should be contained
+# trinity stats--> upgrade to TransRate
+# N50 is kind of outdated & not that useful (bc developed for genomes)
+# bowtie2 to see reads mapped--> use transrate instead
+# salmon can use reads that have already been mapped (e.g. via bowtie2)
+
+#### TransRate ####
+# Smith_Unna et al 2015
+# Jane generally does not use the filtered data bc might be missing 
+# i.e., does not use Trinity.fixed.fasta
+# lowly expressed genes
+# can do pairwise comparisons of assemblies
+# try 2X with reference as one assembly and subset as the other, then reverse
+
+#### BUSCO ####
+# Simao et al 2015
+# expected set of genes in >90% organisms
+# single copy genes only
+# 3023 genes for vertebrates
+# need to use appropriate dataset for comparison
+# download actinopterygii database
+# to find which complete BUSCOs you have
+grep "Complete" full_table_nema_busco_metazoa.tsv 
+EOG091G0HAI	Complete	TRINITY_DN9_c0_g2_i1	149.0	316
+
+nano config.ini
+# go to HMMsearch path to HMM search executable 
+# edit to end and delete full path & save
+path = /usr/bin
+
+## TRY BUSCO ON ROCKFISH ASSEMBLIES
+# download Actinoptergyii  odb9 
+curl -OL http://busco.ezlab.org/datasets/actinopterygii_odb9.tar
+tar -xvzf actinopterygii_odb9.tar.gz
+
+# move file to wd
+ mv /vol_b/Copper_Trinity_LT.fasta .
+ 
+run_BUSCO.py \
+-i Copper_Trinity_LT.fasta \
+-o rockfish_busco_actinopterygii -l ~/busco/actinopterygii_odb9 \
+-m transcriptome --cpu 2
+
+## TRY BUSCO ON SURFPERCH ASSEMBLIES
+# note -- to run BUSCO I had to re-download python and busco
+run_BUSCO.py \
+-i Embio_Trinity_GB.fasta \
+-o Embio_busco_actinopterygii -l ~/busco/actinopterygii_odb9 \
+-m transcriptome --cpu 2
+
+## TRY BUSCO ON Copper hypoxia gill ASSEMBLIES
+# note -- to run BUSCO I had to re-download python and busco
+run_BUSCO.py \
+-i CGH_Trinity_CL.fasta \
+-o CGH_busco_actinopterygii -l ~/busco/actinopterygii_odb9 \
+-m transcriptome --cpu 2
+
+
+
+#### DAMMIT #### by Camille Scott
+# must use a python 3 virtual environment
+# shmlast is a protein aligned
+# output trinity.nema.fasta.dammit.fasta
+# it renames contigs... really annoying
+# names file to convert back to Trinity names
+# GFF file gives you columns with contig info
+
+#### MAPPING w/SALMON #######
+# where do our reads map to on the assembly?
+# what if a read maps to 2 contigs?
+# 80-90 of reads map to multiple contigs!!
+# big push for faster analyses to keep pace with data generation
+# faster to NOT know exactly where the reads are mapping to (if doing DGE)
+# salmon and kallisto do this and this is why its faster
+# does not work for variant calling
+# we have length specific bias in RNAseq data 
+# more chance of mapping to longer contig
+# TPM: true Transcripts Per Million
+# estimated TPM: estimated TPMs
+
+# Salmon is FASTER and accounts for length bias and multimapping
+# we get more reads from the 3' tail by polyA tail
+# Biases: 1. GC-bias (3 bonds instead of 2) makes it harder to get GC content
+# 2. Sequence specific bias: polyA tails and repeats
+# 3. Positional bias: non-uniformity across transcript in sequencing
+# Salmon may be better than Kallisto bc in incorporates more biases
+# but kallisto may be better if you have high heterozygosity
+# accounts for STRAND-SPECIFIC data
+# salmon quant -l for libtype
+# Stranded = S; unstanded = U
+# if you don't know, usually IU (inward and unstranded)
+
+# quant.sf is the important output file
+# can ignore the "effective length " only used for salmon
+# TPM is a normalized count readout (length normalized within a sample)
+# number of counts (last column) - needed for DEseq or edgeR
+# salmon_quant.log tells you mapping rate
+
+
+
+
+
+
+
